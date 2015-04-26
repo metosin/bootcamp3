@@ -17,25 +17,24 @@
 * persistent data-structures      (persistent-data-structures)
 * functional composition          (functional-composition)
 * map, reduce, filter             (map-reduce-filter)
-* destructuring                   TODO
+* destructuring                   (destructuring)
 * fizzbuzz                        TODO
 
 
 # Java interop
 
-* new ClassName.                  (java-interop) (main) TODO
-* . .method
-* statics
-* proxy, reify
+* new ClassName.                  (java-interop) (main)
+* . .method, statics
+* proxy
 
 # Meta-ohjelmointi
 
-* defmacro                        (meta-proramming) TODO
-* -> some-> cond->                TODO
+* defmacro                        (meta-proramming)
+* -> some->
 
 # Clojure in practice
 
-* prismatic/schema                TODO
+* prismatic/schema                (schema)
 * MongoDB                         TODO
 * ring                            (ring)
 * compojure                       (bootcamp.compojure)

@@ -1,5 +1,6 @@
 (ns bootcamp.data-types
-  (:require [clojure.test :refer :all]))
+  (:require [clojure.test :refer :all]
+            [clojure.string :as string]))
 
 ;
 ; Handy type inspection functions:
@@ -92,6 +93,16 @@ answer                                                      ; 42
 (deftest say-hello2-tests
   (is (= "Hello, world" (say-hello2)))
   (is (= "Hello, foo"   (say-hello2 "foo"))))
+
+; Function with any number of args:
+
+(defn foo [a b & args]
+  [a b args])
+
+(foo 1 2 3 4)                                               ;=> [1 2 (3 4)]
+(foo 1 2 3)                                                 ;=> [1 2 (3)]
+(foo 1 2)                                                   ;=> [1 2 nil]
+
 
 ;;
 ;; Closures:
