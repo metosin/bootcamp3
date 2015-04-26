@@ -4,8 +4,6 @@
 ;;
 ;; Data-structures:
 ;; ---------------
-;; - Literals
-;; - Persistent data-structures
 ;;
 
 ;

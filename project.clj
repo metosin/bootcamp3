@@ -21,14 +21,25 @@
                  [hiccup "1.0.5"]
 
                  ; Async:
-                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
 
+                 ; ClojureScript:
+                 [org.clojure/tools.reader "0.9.1"]
+                 [org.clojure/clojurescript "0.0-3208"]]
 
-  :profiles {:dev {:source-paths ["dev-clj"]
-                   :dependencies [[flare "0.2.8"]
+  :source-paths ["src" "cljs-src"]
+
+  :profiles {:dev {:dependencies [[flare "0.2.8"]
                                   [ring-mock "0.1.5"]]
                    :injections [(require 'flare.clojure-test)
-                                (flare.clojure-test/install!)]}
+                                (flare.clojure-test/install!)]
+                   :plugins [[lein-cljsbuild "1.0.5"]]}
              :uberjar {:main  bootcamp.main
-                       :aot   [bootbook.main]
-                       :uberjar-name "bootcamp3.jar"}})
+                       :aot   [bootcamp.main]
+                       :uberjar-name "bootcamp.jar"}}
+
+  :cljsbuild {:builds [{:id "node"
+                        :source-paths ["cljs-src"]
+                        :compiler     {:output-to     "target/hello_world.js"
+                                       :target        :nodejs
+                                       :optimizations :simple}}]})
