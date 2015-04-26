@@ -20,7 +20,6 @@
 * destructuring                   (destructuring)
 * fizzbuzz                        TODO
 
-
 # Java interop
 
 * new ClassName.                  (java-interop) (main)
@@ -39,6 +38,8 @@
 * ring                            (ring)
 * compojure                       (bootcamp.compojure)
 * ClojureScript                   (hello-cljs-world)
+* core.async                      TODO
+* STM                             TODO
 
 # BootBook : putting it all together
 

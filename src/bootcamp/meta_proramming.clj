@@ -6,6 +6,15 @@
 ; Meta programming:
 ;
 
+; defn is a macro, use macroexpan to reveal how it works:
+
+(macroexpand-1 '(defn foo [x] (+ x 5)))
+;=> (def foo (clojure.core/fn ([x] (+ x 5))))
+
+;
+; Roll your own:
+;
+
 (defmacro infix->prefix [a op b]
   (list op a b))
 
@@ -35,28 +44,40 @@
 ;          42
 ;
 
-; Macros are functions that are evaluated while "goind down" and
+; Macros are functions that are evaluated while "going down" and
 ; thet get the s-expressions as arguments:
 
 (infix->prefix (* 4 10) + (inc 1))                          ;=> 42
-
-; Evaluated:
 ; (infix->prefix (* 4 10) + (inc 1))
-;
-; call infix-prefix:
-;    a  =  (* 4 10)
-;    op =  +
-;    b  =  (inc 1)
-;
-; (+ (* 4 10) (inc 1))
-;
-; Now evaluation proceeds as before:
+; \--------------------------------/
+;               |
+;               |    a   = (* 4 10)
+;               |    op  = +
+;               |    b   = (inc 1)
+;               |    returns: (op a b)
+;               |
+;       (+ ( 4 10) (inc 1))
+;          \-----/
+;             |
+;             |
+;       (+   40    (inc 1))
+;                  \-----/
+;                     |
+;                     |
+;       (+   40       2   )
+;       \-----------------/
+;                |
+;                |
+;                42
 
 (+ (infix->prefix 4 * 10) (inc 1))                          ;=> 42
 
 ; (+ (infix->prefix 4 * 10) (inc 1))
 ; (+ \--------------------/ (inc 1))
 ;              |
+;              |  a  = 4
+;              |  op = *
+;              |  b  = 10
 ;              |
 ; (+        (* 4 10)        (inc 1))
 ; (+        \------/        (inc 1))
@@ -72,21 +93,55 @@
 ;               |
 ;               42
 
+
 ;;
-;; Common macros:
+;; Java 7 has now the "try with resources":
+;;
+;;   try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+;;     return br.readLine();
+;;   }
+;;
+;; It only took ~15 years to make it.
 ;;
 
-; defn
+;; Same idiom in Clojure:
 
-(macroexpand-1 '(defn foo [x] (+ x 5)))
-;=> (def foo (clojure.core/fn ([x] (+ x 5))))
+; (let [resource ...make-resource...]
+;   (try
+;     ...use-resource...
+;     (finally
+;       (.close reource))))
 
-; Threading macros: -> and ->>
+(defmacro try-with-resource [resource make-resource & use-resource]
+  `(let [~resource ~make-resource]
+     (try
+       ~@use-resource
+       (finally
+         (.close ~resource)))))
+
+(macroexpand-1 '(try-with-resource r (open-some-file)
+                  (do-some-stuff r)
+                  (work-with-file r)
+                  (heavy-stuff-here r)))
+;=> (clojure.core/let [r (open-some-file)]
+;     (try
+;       (do-some-stuff r)
+;       (work-with-file r)
+;       (heavy-stuff-here r)
+;       (finally
+;         (.close r))))
+
+; Note:
+;   Clojure already has with-open that does this (better).
+;   See http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/with-open
+
+;;
+;; Threading macros:
+;;
 
 (reduce + (map :pages (filter (comp :clojure :langs) b/books)))         ;=> 924
 
 ; Joda talk: "Strong is Vader. Mind what you have learned. Save you it can."
-
 ; Use threading macros to translate Joda talk to human talk:
 
 (->> b/books (filter (comp :clojure :langs)) (map :pages) (reduce +))   ;=> 924
