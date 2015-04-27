@@ -3,8 +3,14 @@
             [bootcamp.data.books :as b]))
 
 ;
-; In bindings (like (let [ HERE ]) and (defn foo [ HERE ]), where
-; you would normally had a symbol, you can place a data structure:
+; In bindings like:
+;   (let [ HERE ]
+;     )
+; and
+;   (defn foo [ HERE ]
+;     )
+; where you would normally have a symbol, you can place a
+; data structure.
 ;
 
 ;
@@ -24,6 +30,7 @@
   ;      |
   ;      \
   ;       -------- This is where 'v' used to be
+  ;
   (+ a b c))
 
 ; Extra elements are ignored
@@ -70,7 +77,7 @@
 
 ; And have defaults:
 
-(let [{:keys [a b c] :or {c 7}} {:a 8 :b 27}]
+(let [{:keys [a b c] :or {c 7}}   {:a 8 :b 27}]
   (+ a b c))
 ;=> 42
 
@@ -89,8 +96,10 @@
 ; returns truthy if the book is about the given language.
 ; Refactor this so that it uses destructuring.
 
-(defn topic? [lang book]                                    ; <-- Use destructuring here
+(defn topic? [lang book]
+  ;                ^^^^----------< detsructure here
   (get (:langs book) lang))
+;      ^^^^^^^^^^^^^-------------< effect here
 
 (deftest topic?-tests
   (is (topic? :clojure (first b/books)))

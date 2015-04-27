@@ -133,11 +133,11 @@
 ; Let's make a string->keyword coercer:
 
 (defn string->keyword-coercer [schema]
-  (if (= schema s/Keyword)    ; if schema says it accepts a keyword,
-    (fn [value]               ; ...then use this corecion function
-      (if (string? value)     ; if freceived value is a string...
-        (keyword value)       ; ...then convert it to keyword
-        value))))             ; ...else return the value as is
+  (if (= schema s/Keyword)                                  ; if schema says it accepts a keyword,
+    (fn [value]                                             ; ...then use this corecion function
+      (if (string? value)                                   ; if freceived value is a string...
+        (keyword value)                                     ; ...then convert it to keyword
+        value))))                                           ; ...else return the value as is
 
 ; Make a coercion function:
 

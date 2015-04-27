@@ -120,17 +120,17 @@
                      {:name "c"        :invented 1972}]))
 
 ; Make a function that takes languages and return those that were
-; invented bewfore 1990.
+; invented before 1990.
 
-(defn fresh-langs [langs]
+(defn mature-langs [langs]
   )
 
-(deftest fresh?-tests
+(deftest mature-langs-tests
   (is (= [{:name "lisp" :invented 1958}
           {:name "c" :invented 1972}]
-         (fresh-langs languages))))
+         (mature-langs languages))))
 
-; When working with seqa, keep is mind, am I working with a collection, or a seq:
+; When working with seq, keep is mind, am I working with a collection, or a seq:
 ;
 ; core functions that work with data-structures:
 ;   (func <data-structure> args)

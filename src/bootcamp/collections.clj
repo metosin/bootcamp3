@@ -44,6 +44,9 @@ some-primes                                                 ;=> [2 3 5 7 11 13 1
 (list? some-happy-numbers)   ;=> true
 (list 1 2 3)                 ;=> (1 2 3)
 
+(instance? java.util.List some-happy-numbers)                      ;=> true
+(instance? java.lang.Iterable some-happy-numbers)                  ;=> true
+
 ; Pay attention:
 
 (conj [1 2 3]  0)   ;=> [1 2 3 0]

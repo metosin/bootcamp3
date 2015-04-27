@@ -86,7 +86,8 @@
 ; (+ 3 3)    => 6
 ; (+ 6 4)    => 10
 
-(reduce (fn [acc value] (str acc ", " value))
+(reduce (fn [acc value]
+          (str acc ", " value))
         ["java" "python" "clojure"])                        ;=> "java, python, clojure"
 
 

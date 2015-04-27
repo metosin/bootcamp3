@@ -25,7 +25,8 @@
 (string/join ", " ["a" "b"])                                ;=> "a, b"
 (string/upper-case "hello")                                 ;=> "HELLO"
 
-(def shout (comp string/upper-case (partial string/join ", ")))
+(def shout (comp string/upper-case
+                 (partial string/join ", ")))
 
 (shout ["this" "is" "fun"])                                 ;=> "THIS, IS, FUN"
 
@@ -33,11 +34,13 @@
 ; Make a function that accepts a string of digits, converts it to
 ; a number and returns the number doubled:
 
-; String -> long
-(java.lang.Long/parseLong "123")                            ;=> 123
+(defn str->long [v]
+  (Long/parseLong v))
+
+(str->long "42")                                            ;=> 42
 
 ; Fix this
-(def str-doubler 0)
+(def str-doubler str->long)
 
 ; This should pass
 (deftest str-doubler-test

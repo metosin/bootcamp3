@@ -6,7 +6,7 @@
 (def answer 42)
 
 ; Evaluate it:
-answer                                                      ; => 42
+answer                                                      ;=> 42
 
 ; The 'answer' is now bound to value 42 in this namespace
 
@@ -31,12 +31,14 @@ answer                                                      ; => 42
       (is (= 1337 b)))
     (is (= 2 b))))
 
-; Uncomment this, see that it fails, then fix it:
 ;
-;(deftest fix-these-let-tests
-;  (let [a "hello"
-;        b "world"]
-;    (is (= "hello, world" (str a b)))))
+; Fix this test:
+;
+
+(deftest fix-these-let-tests
+  (let [a "hello"
+        b "world"]
+    (is (= "Hello, world" (str a b)))))
 
 ;;
 ;; if
@@ -47,14 +49,14 @@ answer                                                      ; => 42
   (is (= "No"  (if false "Yes" "No")))
   (is (= nil   (if false "Yes"))))
 
-; Examine what is considered as 'true', change ? to "Yes" or "No"
+; Examine what is considered as 'true', change the "?" to "Yes" or "No":
 
-;(deftest truthy-tests
-;  (is (= ?  (if true     "Yes" "No")))
-;  (is (= ?  (if answer   "Yes" "No")))
-;  (is (= ?  (if "hello"  "Yes" "No")))
-;  (is (= ?  (if false    "Yes" "No")))
-;  (is (= ?  (if nil      "Yes" "No"))))
+(deftest truthy-tests
+  (is (= "?"  (if true     "Yes" "No")))
+  (is (= "?"  (if answer   "Yes" "No")))
+  (is (= "?"  (if "hello"  "Yes" "No")))
+  (is (= "?"  (if false    "Yes" "No")))
+  (is (= "?"  (if nil      "Yes" "No"))))
 
 ;;
 ;; Use 'do' to evaluate multiple statements (always for side-effects)

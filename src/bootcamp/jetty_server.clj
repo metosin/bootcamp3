@@ -6,7 +6,7 @@
 
 ; Stop Jetty
 (defn stop-server []
-  (when-let [s @server]
+  (when-let [s (deref server)]
     (println "Stopping Jetty...")
     (.stop s)
     (reset! server nil)))

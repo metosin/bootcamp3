@@ -1,6 +1,5 @@
 (ns bootcamp.data-types
-  (:require [clojure.test :refer :all]
-            [clojure.string :as string]))
+  (:require [clojure.test :refer :all]))
 
 ;
 ; Handy type inspection functions:
@@ -102,7 +101,6 @@ answer                                                      ; 42
 (foo 1 2 3 4)                                               ;=> [1 2 (3 4)]
 (foo 1 2 3)                                                 ;=> [1 2 (3)]
 (foo 1 2)                                                   ;=> [1 2 nil]
-
 
 ;;
 ;; Closures:
