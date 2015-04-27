@@ -35,9 +35,9 @@
 * prismatic/schema                (schema)
 * ring                            (ring)
 * compojure                       (bootcamp.compojure)
-* ClojureScript                   (hello-cljs-world)
-* core.async                      (async)
 * STM                             (stm)
+* core.async                      (async)
+* ClojureScript                   (hello-cljs-world)
 
 # BootBook : putting it all together
 
