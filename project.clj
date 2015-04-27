@@ -17,15 +17,17 @@
                  ; Swagger UI
                  [metosin/ring-swagger-ui "2.1.0-M2-2"]
 
-                 ; HTML
+                 ; HTTP and HTML
+                 [clj-http "1.1.1"]
                  [hiccup "1.0.5"]
+                 [enlive "1.1.5"]
 
                  ; Async:
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
 
                  ; ClojureScript:
-                 [org.clojure/tools.reader "0.9.1"]
-                 [org.clojure/clojurescript "0.0-3208"]]
+                 [org.clojure/tools.reader "0.9.2"]
+                 [org.clojure/clojurescript "0.0-3211"]]
 
   :source-paths ["src" "cljs-src"]
 
