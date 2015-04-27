@@ -127,6 +127,5 @@ answer                                                      ; 42
 
 (deftest greeter-tests
   (let [f (greeter "Hello")]
-    ;(is (= "Hello, world" (f "world")))
-    ;(is (= nil (f nil)))
-    ))
+    (is (= "Hello, world" (f "world")))
+    (is (= nil (f nil)))))
