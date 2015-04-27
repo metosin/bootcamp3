@@ -27,12 +27,14 @@
 
                  ; ClojureScript:
                  [org.clojure/tools.reader "0.9.2"]
-                 [org.clojure/clojurescript "0.0-3211"]]
+                 [org.clojure/clojurescript "0.0-3211"]
+                 [prismatic/dommy "1.0.0"]]
 
   :source-paths ["src" "cljs-src"]
 
   :profiles {:dev {:dependencies [[flare "0.2.8"]
                                   [ring-mock "0.1.5"]]
+                   :resource-paths ["target/generated"]
                    :injections [(require 'flare.clojure-test)
                                 (flare.clojure-test/install!)]
                    :plugins [[lein2-eclipse "2.0.0" :exclusions [org.clojure/clojure]]
@@ -41,8 +43,13 @@
                        :aot   [bootcamp.main]
                        :uberjar-name "bootcamp.jar"}}
 
-  :cljsbuild {:builds [{:id "node"
+  :cljsbuild {:builds [{:id "dev"
                         :source-paths ["cljs-src"]
-                        :compiler     {:output-to     "target/hello_world.js"
-                                       :target        :nodejs
-                                       :optimizations :simple}}]})
+                        :compiler     {:main            "bootcamp.hello-cljs-world"
+                                       :asset-path      "js/out"
+                                       :output-to       "target/generated/public/js/bootcamp.js"
+                                       :output-dir      "target/generated/public/js/out"
+                                       :source-map      true
+                                       :optimizations   :none
+                                       :cache-analysis  true
+                                       :pretty-print    true}}]})
