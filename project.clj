@@ -33,7 +33,8 @@
                                   [ring-mock "0.1.5"]]
                    :injections [(require 'flare.clojure-test)
                                 (flare.clojure-test/install!)]
-                   :plugins [[lein-cljsbuild "1.0.5"]]}
+                   :plugins [[lein2-eclipse "2.0.0" :exclusions [org.clojure/clojure]]
+                             [lein-cljsbuild "1.0.5"]]}
              :uberjar {:main  bootcamp.main
                        :aot   [bootcamp.main]
                        :uberjar-name "bootcamp.jar"}}
