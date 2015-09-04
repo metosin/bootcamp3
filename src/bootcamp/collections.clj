@@ -24,7 +24,7 @@ some-primes                                                 ;=> [2 3 5 7 11 13 1
 (instance? java.util.List some-primes)                      ;=> true
 (instance? java.lang.Iterable some-primes)                  ;=> true
 
-; Exceprcies: fix these:
+; Excercises: fix these:
 
 (deftest vector-tests
   (is (= 3 (nth [] 2)))
@@ -52,7 +52,7 @@ some-primes                                                 ;=> [2 3 5 7 11 13 1
 (conj [1 2 3]  0)   ;=> [1 2 3 0]
 (conj '(1 2 3) 0)   ;=> (0 1 2 3)
 
-; Exceprcies: fix these:
+; Excercises: fix these:
 
 (deftest list-tests
   (is (= '("a" "b" "c") (conj '() "a"))))
