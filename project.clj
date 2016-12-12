@@ -17,6 +17,10 @@
                  ; Swagger UI
                  [metosin/ring-swagger-ui "2.2.5-0"]
 
+                 ;; database
+                 [org.clojure/java.jdbc "0.7.0-alpha1"]
+                 [mysql/mysql-connector-java "6.0.5"]
+
                  ; HTTP and HTML
                  [clj-http "3.4.1"]
                  [hiccup "1.0.5"]
