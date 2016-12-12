@@ -11,15 +11,46 @@
 ;             :state "british columbia",
 ;             :postcode 60602}}
 
+(defn female? [user] (= "female" (:gender user)))
+
+(defn transform [user]
+  {:location (:location user)
+   :full-name (str/join " " [(get-in user [:name :first])
+                             (get-in user [:name :last])])})
+
 ;;
 ;; v1: with let
 ;;
+
+(let [response (client/get "https://randomuser.me/api?results=2" {:as :json})
+      users (get-in response [:body :results])
+      females (filter female? users)]
+  (map transform females))
 
 ;;
 ;; v2: with functions
 ;;
 
+(map
+  transform
+  (filter
+    female?
+    (get-in
+      (client/get
+        "https://randomuser.me/api?results=2"
+        {:as :json})
+      [:body :results])))
+
 ;;
 ;; v3: threading
 ;;
 
+(defn get-some-females [q]
+  (as-> (client/get
+          "https://randomuser.me/api"
+          {:as :json, :query-params {:results q}}) $
+        (get-in $ [:body :results])
+        (filter female? $)
+        (map transform $)))
+
+(get-some-females 10)
