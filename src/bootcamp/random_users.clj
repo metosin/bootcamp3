@@ -13,10 +13,10 @@
 
 (defn female? [user] (= "female" (:gender user)))
 
-(defn transform [user]
-  {:location (:location user)
-   :full-name (str/join " " [(get-in user [:name :first])
-                             (get-in user [:name :last])])})
+(defn transform [{:keys [location name]}]
+  {:location location
+   :full-name (str/join " " [(:first name)
+                             (:last name)])})
 
 ;;
 ;; v1: with let
