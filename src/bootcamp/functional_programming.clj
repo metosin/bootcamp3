@@ -5,7 +5,16 @@
 ;; Functional programming:
 ;;
 
-; Some definitionas: https://en.wikipedia.org/wiki/Functional_programming
+; Some definitions:
+;
+;    ...style of building the structure and elements of computer programs,
+;    that treats computation as the evaluation of mathematical functions and
+;    avoids state and mutable data.
+;
+;    source: https://en.wikipedia.org/wiki/Functional_programming
+;
+; Commonly:
+;
 ; * First-class and higher-order functions
 ; * Pure functions
 ;
