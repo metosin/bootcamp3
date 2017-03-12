@@ -177,15 +177,15 @@
 ; - if buffer is full, new values are "dropped"
 
 #_
-(let [c      (a/chan (a/dropping-buffer 10)) ; buffer to 10 items
-      reader (logger :reader)
-      writer (logger :writer)]
-  (writer "Write 20 numbers and close channel")
+(let [c (a/chan (a/dropping-buffer 10)) ; buffer to 10 items
+      reader-log (logger :reader)
+      writer-log (logger :writer)]
+  (writer-log "Write 20 numbers and close channel")
   (dotimes [n 20]
     (>!! c n))
   (a/close! c)
-  (writer "Done")
-  (read-until-closed!! c reader))
+  (writer-log "Done")
+  (read-until-closed!! c reader-log))
 
 ; stdout:
 ;   0.000 [writer]: "Write 20 numbers and close channel"
@@ -210,15 +210,15 @@
 ; - if buffer is full, oldest values are dropped
 
 #_
-(let [c      (a/chan (a/sliding-buffer 10))
-      reader (logger :reader)
-      writer (logger :writer)]
-  (writer "Write 20 numbers and close channel")
+(let [c (a/chan (a/sliding-buffer 10))
+      reader-log (logger :reader)
+      writer-log (logger :writer)]
+  (writer-log "Write 20 numbers and close channel")
   (dotimes [n 20]
     (>!! c n))
   (a/close! c)
-  (writer "Done")
-  (read-until-closed!! c reader))
+  (writer-log "Done")
+  (read-until-closed!! c reader-log))
 
 ; stdout:
 ;   0.000 [writer]: "Write 20 numbers and close channel"
@@ -265,12 +265,12 @@
 ; Inside go blocks, use "parking" functions >! and <!
 
 #_
-(let [c      (a/chan)
-      reader (logger :reader)
-      writer (logger :writer)]
+(let [c (a/chan)
+      reader-log (logger :reader)
+      writer-log (logger :writer)]
   (go
-    (reader "Received" (<! c))) ; <! will park the block
-  (writer "Sleeping for 1 sec...")
+    (reader-log "Received" (<! c))) ; <! will park the block
+  (writer-log "Sleeping for 1 sec...")
   (Thread/sleep 1000)
   (>!! c :hello)) ; out side of go block use >!!
 
@@ -283,14 +283,14 @@
 
 #_
 (let [c      (a/chan)
-      reader (logger :reader)
-      writer (logger :writer)]
+      reader-log (logger :reader)
+      writer-log (logger :writer)]
   (go
-    (reader "Received" (<! c)))
+    (reader-log "Received" (<! c)))
   (go
-    (writer "Sleeping for 1 sec...")
+    (writer-log "Sleeping for 1 sec...")
     (<! (a/timeout 1000))
-    (writer "Timeout elapsed, sending message")
+    (writer-log "Timeout elapsed, sending message")
     (>! c :hello)))
 
 ; stdout:
@@ -303,13 +303,13 @@
 ;
 
 #_
-(let [c1     (a/chan)
-      c2     (go
-               (* 2 (<! c1)))
-      reader (logger :reader)]
+(let [c1 (a/chan)
+      c2 (go
+           (* 2 (<! c1)))
+      reader-log (logger :reader)]
   (go
-    (reader "Received 1:" (<! c2))
-    (reader "Received 2:" (<! c2)))
+    (reader-log "Received 1:" (<! c2))
+    (reader-log "Received 2:" (<! c2)))
   (go
     (>! c1 21)))
 
@@ -344,19 +344,24 @@
 ; alt! and alt!!
 
 #_
-(let [c1 (a/chan)
+(let [go1-log (logger "go 1")
+      go2-log (logger "go 2")
+      c1 (a/chan)
       c2 (a/chan)
       c3 (a/chan)]
   (go
     (while true
-      (println (a/alt!
+      (go1-log (a/alt!
                  c1 ([v] (+ v 10))
                  c2 ([v] (* v 10))
                  [[c3 42]] (println "wrote to c3")))))
   (go
+    (go2-log "writing to c1...")
     (>! c1 5)
+    (go2-log "writing to c2...")
     (>! c2 5)
-    (println (str "got from c3: " (<! c3)))))
+    (go2-log "reading from c2...")
+    (go2-log "got from c3: " (<! c3))))
 
 ;;
 ;; Remedy for callback hell:
@@ -400,13 +405,16 @@
     (go
       (loop []
         (a/alt!
-          ctrl   ([]
-                   (log "close requested")
-                   nil)
           events ([v]
                    (when v
                      (log "received" v)
-                     (recur)))))
+                     (recur)))
+          ctrl   ([]
+                   (log "close requested")
+                   nil)
+          (a/timeout 100) ([]
+                            (log "timeout")
+                            (recur))))
       (log "closed"))
     [ctrl events]))
 
@@ -415,28 +423,32 @@
   (go (>! events 1))
   (go (>! events 2))
   (go (>! events 3))
+  (Thread/sleep 250)
   (go (>! events 4))
-  (go
-    (<! (a/timeout 200))
-    (a/close! ctrl)))
+  (go (a/close! ctrl))
+  nil)
 
 ; stdout
-;   0.005 [loop]: "received" 2
-;   0.005 [loop]: "received" 3
-;   0.006 [loop]: "received" 4
-;   0.006 [loop]: "received" 1
-;   0.211 [loop]: "close requested"
-;   0.211 [loop]: "closed"
+;  0.002 [loop]: "received" 1
+;  0.003 [loop]: "received" 2
+;  0.003 [loop]: "received" 3
+;  0.103 [loop]: "timeout"
+;  0.208 [loop]: "timeout"
+;  0.256 [loop]: "received" 4
+;  0.257 [loop]: "close requested"
+;  0.257 [loop]: "closed"
 ;
-; Note that the order of "received" messages is random, your results may differ.
+; Note that the order of "received" messages may differ.
 
 ;;
-;; (semi) Practical example: news agregator
+;; (semi) Practical example: news aggregator
 ;; - Fetch news from multiple sources
 ;; - Combine results
 ;;
 
+#_
 (require '[clj-http.client :as http])
+#_
 (require '[net.cgrand.enlive-html :as html])
 
 ; First a helper that fetch selected part from html resource:
@@ -456,8 +468,9 @@
     (future
       (->> (fetch "https://news.ycombinator.com" [:td.title html/content])
            (map (juxt (comp first :content) (comp :href :attrs)))
-           (filter (partial every? identity))
+           (filter (partial every? string?))
            (butlast)
+           (map (partial cons 'hn))
            (map (partial a/put! c))
            (dorun))
       (a/close! c))
@@ -471,6 +484,7 @@
     (future
       (->> (fetch "http://www.reddit.com" [:#siteTable :> :.thing :p.title :> :a])
            (map (juxt (comp first :content) (comp :href :attrs)))
+           (map (partial cons 'reddit))
            (map (partial a/put! c))
            (dorun))
       (a/close! c))
@@ -482,18 +496,28 @@
 
 #_
 (read-until-closed!!
-  (a/map first [(a/merge [(hacker-news-links) (reddit-links)])])
+  (a/map (fn [[source title _]]
+           (str "(" source ") " title))
+         [(a/merge [(hacker-news-links) (reddit-links)])])
   (logger "news"))
 
 ; stdout:
 ;   0.000 [news]: "Reading until closed"
-;   0.485 [news]: "Blunt rappers."
-;   0.485 [news]: "My ps4 controller has hidden PS4 controllers"
-;   0.485 [news]: "Scientists reverse ageing process in mice; early human trials showing 'promising results'"
-;   0.486 [news]: "I also installed a dishwasher, dishes done in 90 minutes."
-;   0.486 [news]: "Swiss Publisher Defies Malaysian Threats ??? Will publish investigation into 'Asian Timber Mafia', ...
-;   0.487 [news]: "12 Angry Men. 96 minutes long, black and white, takes place in one room, is probably considered ...
-;   0.488 [news]: "Military helmet getting its camouflage."
+;   0.592 [news]: "(hn) Pardon Snowden"
+;   0.592 [news]: "(hn) Introducing the Firefox debugger.html"
+;   0.592 [news]: "(hn) Announcing Envoy: C++ L7 proxy and communication bus"
+;   0.592 [news]: "(hn) Matt Stone and Trey Parker Reveal the Secret to Keeping South Park Cool"
+;   0.593 [news]: "(hn) GitHub Universe – Live Stream"
+;   0.593 [news]: "(hn) Teen Creates “Sit with Us” App for Bullied Kids"
+;   0.593 [news]: "(hn) All New Amazon Echo Dot"
+;   0.593 [news]: "(hn) Uber starts self-driving car pickups in Pittsburgh"
+; ...
+;   1.112 [news]: "(reddit) Why, Microsoft?"
+;   1.112 [news]: "(reddit) It's not the hangover Radar"
+;   1.112 [news]: "(reddit) My cat likes to have a \"cocktail\" whenever I have a drink (she meows until she gets it) and she'll only drink out of this festive glass"
+;   1.112 [news]: "(reddit) This box of limes recommends a different way of cutting fruit."
+;   1.113 [news]: "(reddit) TIL The world's largest concentration of nukes is housed 20 miles NW of Seattle, and it's defended by trained dolphins."
+;   1.114 [news]: "(reddit) Hello world!"
 
 ;;
 ;; Bonus:
@@ -505,3 +529,4 @@
 ;;
 ;; API Docs: http://clojure.github.io/core.async/
 ;; also, see http://clojuredocs.org/clojure.core.async
+;;
