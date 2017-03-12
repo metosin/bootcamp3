@@ -1,5 +1,5 @@
 (ns bootcamp.compojure
-  (:require [compojure.api.sweet :refer [defapi context GET* POST*] :as c]
+  (:require [compojure.api.sweet :refer [defapi context GET POST] :as c]
             [ring.util.http-response :refer [ok] :as resp]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [bootcamp.jetty-server :as jetty]
@@ -17,27 +17,25 @@
 (def db (atom []))
 
 ; Ring handler:
-(defapi api-handler
-  {:format {:formats [:json-kw :edn :transit-json]}}
-  (c/swagger-ui "/docs")
-  (c/swagger-docs :title "Bootcamp sample application")
-
-  (GET* "/" []
-    (resp/temporary-redirect "/index.html"))
-
-  (c/swaggered "bootcamp" :description "Bootcamp API"
+(def api-handler
+  (c/api
+    {:swagger {:ui "/api-docs"
+               :spec "/swagger.json"
+               :data {:info {:title "Bootcamp sample application"
+                             :description "Compojure Api example"}
+                      :tags [{:name "api", :description "some apis"}]}}}
     (context "/api" []
 
-      (GET* "/" []
+      (GET "/" []
         :return [Message]
         (ok @db))
 
-      (GET* "/:sender" []
+      (GET "/:sender" []
         :path-params [sender :- s/Str]
         :return [Message]
         (ok (filter (fn [m] (= (:sender m) sender)) @db)))
 
-      (POST* "/" []
+      (POST "/" []
         :body [message Message]
         :return [Message]
         (ok (swap! db conj message))))))
@@ -47,3 +45,9 @@
 
 (defn start-server []
   (jetty/start-server #'handler))
+
+(comment
+  (start-server))
+
+(comment
+  (jetty/stop-server))
