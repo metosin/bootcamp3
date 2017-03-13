@@ -18,6 +18,14 @@
                  ; Swagger UI
                  [metosin/ring-swagger-ui "2.2.8"]
 
+                 ; Rest API:
+                 [metosin/compojure-api "1.1.10"]
+                 [metosin/ring-http-response "0.8.2"]
+
+                 ; Database
+                 [org.clojure/java.jdbc "0.7.0-alpha1"]
+                 [mysql/mysql-connector-java "6.0.6"]
+
                  ; HTTP and HTML
                  [clj-http "3.4.1"]
                  [hiccup "1.0.5"]
@@ -42,7 +50,7 @@
 
   :profiles {:dev {:dependencies [[ring-mock "0.1.5"]]
                    :resource-paths ["target/generated"]
-                   :plugins [[lein-cljsbuild "1.0.5"]]}
+                   :plugins [[lein-cljsbuild "1.1.5"]]}
              :uberjar {:main  bootcamp.main
                        :aot   [bootcamp.main]
                        :uberjar-name "bootcamp.jar"}}
