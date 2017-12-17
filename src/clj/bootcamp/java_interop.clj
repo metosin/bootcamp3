@@ -43,13 +43,14 @@
 ;; Exceptions:
 ;;
 
-(try
-  (println "Here we go...")
-  (throw (RuntimeException. "Oh no!"))
-  (catch Exception e
-    (println "Got exception:" (.getMessage e)))
-  (finally
-    (println "That's it for exceptions")))
+(comment
+  (try
+    (println "Here we go...")
+    (throw (RuntimeException. "Oh no!"))
+    (catch Exception e
+      (println "Got exception:" (.getMessage e)))
+    (finally
+      (println "That's it for exceptions"))))
 
 ; stdout
 ;   Here we go...
@@ -60,10 +61,12 @@
 ; Clojure functions implement java.lang.Runnable and java.util.concurrent.Callable.
 ;
 
-(let [t (Thread. (fn []
-                   (Thread/sleep 1000)
-                   (println "Done")))]
-  (.start t))
+(comment
+  (let [t (Thread. (fn []
+                     (Thread/sleep 1000)
+                     (println "Done")))]
+    (.start t)))
+
 ;=> nil
 ; after 1 sec prints "Done" to stdout.
 
@@ -71,10 +74,11 @@
 ; proxy: Implement Java interface:
 ;
 
-(doseq [f (-> (File. ".")
-              (.listFiles (proxy [FilenameFilter] []
-                            (accept [dir file-name]
-                              (.endsWith file-name ".clj")))))]
-  (println "file:" (.getName f)))
+(comment
+  (doseq [f (-> (File. ".")
+                (.listFiles (proxy [FilenameFilter] []
+                              (accept [dir file-name]
+                                (.endsWith file-name ".clj")))))]
+    (println "file:" (.getName f))))
 ; prints:
 ;  file: project.clj

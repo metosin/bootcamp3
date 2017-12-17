@@ -49,7 +49,7 @@
 
 (let [some-empty-collection []]
   (if (nil? (seq some-empty-collection))
-    (println "Yeah, is empty")))
+    "Yeah, is empty"))
 
 ; Clojure's = compares collections and sequemces based on their content:
 
@@ -166,8 +166,9 @@
   (cons (rand-int 100)
         (lazy-seq (random-ints))))
 
-(let [r (random-ints)]
-  (println (take 10 r)))
+(comment
+  (let [r (random-ints)]
+    (println (take 10 r))))
 
 ; Sequence of fibonacci numbers
 
@@ -177,5 +178,6 @@
   ([a b]
    (cons (+ a b) (lazy-seq (fibonacci b (+ a b))))))
 
-(let [f (fibonacci)]
-  (println (take 10 f)))
+(comment
+  (let [f (fibonacci)]
+    (println (take 10 f))))

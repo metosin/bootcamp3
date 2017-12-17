@@ -20,7 +20,7 @@ answer                                                      ;=> 42
 
 (let [a 21
       b 2]
-  (println "a * b =" (* a b)))
+  (str "a * b =" (* a b)))
 
 (deftest let-tests
   (let [a 21
@@ -62,10 +62,11 @@ answer                                                      ;=> 42
 ;; Use 'do' to evaluate multiple statements (always for side-effects)
 ;;
 
-(println "result:" (if (= (* 2 21) answer)
-                     (do
-                       (println "Yes, we have the answer")
-                       "yes")
-                     (do
-                       (println "Not, for some reason we do not have the answer")
-                       "no")))
+(defn result []
+  (println "result:" (if (= (* 2 21) answer)
+                       (do
+                         (println "Yes, we have the answer")
+                         "yes")
+                       (do
+                         (println "Not, for some reason we do not have the answer")
+                         "no"))))
