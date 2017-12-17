@@ -1,8 +1,3 @@
-(ns bootcamp.jdbc
-  (:require [clojure.java.jdbc :as j]))
+(ns bootcamp.jdbc)
 
-(def db
-  {:dbtype "mysql"
-   :dbname "kikka"
-   :user "root"})
-
+(def db "postgresql://localhost/bootcamp?user=bootcamp&password=bootcamp")
