@@ -4,6 +4,8 @@
                  ; Common libs:
                  [prismatic/schema "1.1.7"]
                  [prismatic/plumbing "0.5.5"]
+                 [metosin/schema-tools "0.9.1"]
+                 [metosin/spec-tools "0.5.1"]
                  [metosin/potpuri "0.5.1"]
 
                  ; Ring:
@@ -12,31 +14,38 @@
                  [ring/ring-jetty-adapter "1.6.3"]
 
                  ; Rest API:
-                 [metosin/compojure-api "1.1.12"]
+                 [metosin/compojure-api "1.1.11"]
                  [metosin/ring-http-response "0.9.0"]
 
                  ; Swagger UI
-                 [metosin/ring-swagger-ui "3.9.0"]
+                 [metosin/ring-swagger-ui "3.0.17"]
 
                  ; Rest API:
-                 [metosin/compojure-api "1.1.12"]
+                 [metosin/compojure-api "2.0.0-alpha16"]
                  [metosin/ring-http-response "0.9.0"]
+                 [metosin/muuntaja "0.4.1"]
+
+                 ; jsonista
+                 [metosin/jsonista "0.1.0"]
 
                  ; Database
-                 [org.clojure/java.jdbc "0.7.5"]
-                 [mysql/mysql-connector-java "6.0.6"]
+                 [hikari-cp "2.0.0"]
+                 [org.postgresql/postgresql "42.1.4"]
+                 [org.clojure/java.jdbc "0.7.4"]
+                 [org.flywaydb/flyway-core "5.0.2"]
+                 [com.layerware/hugsql "0.4.8"]
 
                  ; HTTP and HTML
-                 [clj-http "3.8.0"]
+                 [clj-http "2.3.0"]
                  [hiccup "1.0.5"]
                  [enlive "1.1.6"]
 
                  ; Async:
-                 [org.clojure/core.async "0.4.474"]
+                 [org.clojure/core.async "0.3.465"]
 
                  ; ClojureScript:
-                 [org.clojure/clojurescript "1.10.145"]
-                 [org.clojure/tools.reader "1.2.2"]
+                 [org.clojure/clojurescript "1.9.456"]
+                 [org.clojure/tools.reader "1.1.1"]
                  [prismatic/dommy "1.1.0"]
 
                  ; Logging:
@@ -46,22 +55,28 @@
                  [org.slf4j/log4j-over-slf4j "1.7.25"]
                  [ch.qos.logback/logback-classic "1.2.3" :exclusions [org.slf4j/slf4j-api]]]
 
-  :source-paths ["src" "cljs-src"]
+  :source-paths ["src/clj" "src/cljs" "src/cljc"]
+  :test-paths ["test/clj" "test/cljc"]
+
+  :java-source-paths ["src/java"]
+
+  :plugins [#_[lein-virgil "0.1.6"]
+            [metosin/boot-alt-test "0.4.0-20171121.142027-5"]]
 
   :profiles {:dev {:dependencies [[ring-mock "0.1.5"]]
                    :resource-paths ["target/generated"]
-                   :plugins [[lein-cljsbuild "1.1.5"]]}
-             :uberjar {:main bootcamp.main
-                       :aot [bootcamp.main]
+                   :plugins [[lein-cljsbuild "1.1.7"]]}
+             :uberjar {:main  bootcamp.main
+                       :aot   [bootcamp.main]
                        :uberjar-name "bootcamp.jar"}}
 
   :cljsbuild {:builds [{:id "dev"
-                        :source-paths ["cljs-src"]
-                        :compiler {:main "bootcamp.hello-cljs-world"
-                                   :asset-path "js/out"
-                                   :output-to "target/generated/public/js/bootcamp.js"
-                                   :output-dir "target/generated/public/js/out"
-                                   :source-map true
-                                   :optimizations :none
-                                   :cache-analysis true
-                                   :pretty-print true}}]})
+                        :source-paths ["src/cljs"]
+                        :compiler     {:main            "bootcamp.hello-cljs-world"
+                                       :asset-path      "js/out"
+                                       :output-to       "target/generated/public/js/bootcamp.js"
+                                       :output-dir      "target/generated/public/js/out"
+                                       :source-map      true
+                                       :optimizations   :none
+                                       :cache-analysis  true
+                                       :pretty-print    true}}]})

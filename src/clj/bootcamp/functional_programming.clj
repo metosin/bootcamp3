@@ -90,4 +90,4 @@
 
 (let [g (greeter "Hullo")]
   ; now g 'closes over string "Hullo"'
-  (println (g "world!")))
+  (str (g "world!")))
