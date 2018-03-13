@@ -4,8 +4,8 @@
                  ; Common libs:
                  [prismatic/schema "1.1.7"]
                  [prismatic/plumbing "0.5.5"]
-                 [metosin/schema-tools "0.9.1"]
-                 [metosin/spec-tools "0.5.1"]
+                 [metosin/schema-tools "0.10.0"]
+                 [metosin/spec-tools "0.6.1"]
                  [metosin/potpuri "0.5.1"]
 
                  ; Ring:
@@ -14,38 +14,38 @@
                  [ring/ring-jetty-adapter "1.6.3"]
 
                  ; Rest API:
-                 [metosin/compojure-api "1.1.11"]
+                 [metosin/compojure-api "1.1.12"]
                  [metosin/ring-http-response "0.9.0"]
 
                  ; Swagger UI
-                 [metosin/ring-swagger-ui "3.0.17"]
+                 [metosin/ring-swagger-ui "3.9.0"]
 
                  ; Rest API:
                  [metosin/compojure-api "2.0.0-alpha16"]
                  [metosin/ring-http-response "0.9.0"]
-                 [metosin/muuntaja "0.4.1"]
+                 [metosin/muuntaja "0.5.0"]
 
                  ; jsonista
-                 [metosin/jsonista "0.1.0"]
+                 [metosin/jsonista "0.1.1"]
 
                  ; Database
-                 [hikari-cp "2.0.0"]
-                 [org.postgresql/postgresql "42.1.4"]
-                 [org.clojure/java.jdbc "0.7.4"]
-                 [org.flywaydb/flyway-core "5.0.2"]
+                 [hikari-cp "2.2.0"]
+                 [org.postgresql/postgresql "42.2.1"]
+                 [org.clojure/java.jdbc "0.7.5"]
+                 [org.flywaydb/flyway-core "5.0.7"]
                  [com.layerware/hugsql "0.4.8"]
 
                  ; HTTP and HTML
-                 [clj-http "2.3.0"]
+                 [clj-http "3.8.0"]
                  [hiccup "1.0.5"]
                  [enlive "1.1.6"]
 
                  ; Async:
-                 [org.clojure/core.async "0.3.465"]
+                 [org.clojure/core.async "0.4.474"]
 
                  ; ClojureScript:
-                 [org.clojure/clojurescript "1.9.456"]
-                 [org.clojure/tools.reader "1.1.1"]
+                 [org.clojure/clojurescript "1.10.145"]
+                 [org.clojure/tools.reader "1.2.2"]
                  [prismatic/dommy "1.1.0"]
 
                  ; Logging:
