@@ -2,30 +2,28 @@
 # Common:
 #
 
-target
-lib
-classes
-checkouts
-bin
-pom.xml
-pom.xml.asc
-*.jar
-*.class
-.nrepl-port
+/target
+/checkouts
+/pom.xml
+/pom.xml.asc
+
+# nrepl:
+
+/.nrepl-port
 
 #
 # Lein:
 #
 
-.lein-*
+/.lein-*
 
 #
 # Eclipse:
 #
 
-.project
-.classpath
-.settings
+/.project
+/.classpath
+/.settings
 
 #
 # IntelliJ IDEA:
