@@ -21,7 +21,7 @@
                  [metosin/ring-swagger-ui "3.9.0"]
 
                  ; Rest API:
-                 [metosin/compojure-api "2.0.0-alpha16"]
+                 [metosin/compojure-api "2.0.0-alpha18"]
                  [metosin/ring-http-response "0.9.0"]
                  [metosin/muuntaja "0.5.0"]
 
@@ -57,14 +57,11 @@
 
   :source-paths ["src/clj" "src/cljs" "src/cljc"]
   :test-paths ["test/clj" "test/cljc"]
-
   :java-source-paths ["src/java"]
 
-  :plugins [#_[lein-virgil "0.1.6"]
-            [metosin/boot-alt-test "0.4.0-20171121.142027-5"]]
+  :plugins [[metosin/boot-alt-test "0.4.0-20171121.142027-5"]]
 
-  :profiles {:dev {:dependencies [[ring-mock "0.1.5"]]
-                   :resource-paths ["target/generated"]
+  :profiles {:dev {:resource-paths ["target/generated"]
                    :plugins [[lein-cljsbuild "1.1.7"]]}
              :uberjar {:main  bootcamp.main
                        :aot   [bootcamp.main]
