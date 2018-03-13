@@ -139,12 +139,12 @@
 ;; Threading macros:
 ;;
 
-(reduce + (map :pages (filter (comp :clojure :langs) b/books)))         ;=> 924
+(reduce + (map :pages (filter (comp :clojure :langs) b/books))) ;=> 924
 
 ; Joda talk: "Strong is Vader. Mind what you have learned. Save you it can."
 ; Use threading macros to translate Joda talk to human talk:
 
-(->> b/books (filter (comp :clojure :langs)) (map :pages) (reduce +))   ;=> 924
+(->> b/books (filter (comp :clojure :langs)) (map :pages) (reduce +)) ;=> 924
 
 (->> b/books
      (filter (comp :clojure :langs))
@@ -163,9 +163,9 @@
 ; Working with a collection, use ->
 ; Working with a seq, use ->>
 
-(-> {:title  "Murach's Mainframe COBOL"
-     :langs  #{}
-     :read?  false}
+(-> {:title "Murach's Mainframe COBOL"
+     :langs #{}
+     :read? false}
     (assoc :pages 687)
     (update-in [:langs] conj :cobol)
     (dissoc :read?))

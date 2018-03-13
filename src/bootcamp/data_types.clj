@@ -11,6 +11,7 @@
 (type (type "hello"))                                       ;=> java.lang.Class
 
 (instance? java.lang.String "hello")                        ;=> true
+(instance? java.lang.String 42)                             ;=> false
 
 ;;
 ;; Basic data types:
@@ -87,7 +88,10 @@ answer                                                      ; 42
   ([]
    (say-hello2 "world"))
   ([your-name]
-   (str "Hello, " your-name)))
+   (str "Hello, " your-name))
+  ([greeting your-name]
+   (str greeting ", " your-name)))
+
 
 (deftest say-hello2-tests
   (is (= "Hello, world" (say-hello2)))
