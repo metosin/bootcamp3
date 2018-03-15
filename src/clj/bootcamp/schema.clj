@@ -8,7 +8,7 @@
 
 ;; Schemas - https://github.com/Prismatic/schema
 
-; Chedking by type:
+; Checking by type:
 
 (s/check Long 42)                                           ;=> nil
 (s/check java.util.Date "bar")                              ;=> (not (instance? java.util.Date "bar"))
@@ -36,7 +36,7 @@
 (s/check s/Str "foo")                                       ;=> nil
 
 ; Those are especially important when sharing code with Clojure and ClojureScript:
-; Forexample, s/Str evaluates to java.lang.String in Clojure and String in ClojureScript.
+; For example, s/Str evaluates to java.lang.String in Clojure and String in ClojureScript.
 
 ; Custom predicates:
 

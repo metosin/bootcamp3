@@ -51,7 +51,7 @@
   (if (nil? (seq some-empty-collection))
     "Yeah, is empty"))
 
-; Clojure's = compares collections and sequemces based on their content:
+; Clojure's = compares collections and sequences based on their content:
 
 (deftest =-tests
   (is (= [1 2 3] '(1 2 3)))
@@ -82,7 +82,7 @@
     (is (= []           (rest (rest (rest (rest s))))))
     (is (= []           (rest (rest (rest (rest (rest s)))))))
 
-    ; As you can see, rest _always" returns a seq.
+    ; As you can see, rest _always_ returns a seq.
     ; Even here:
     (is (= [] (rest nil)))
 
@@ -112,7 +112,7 @@
 ;
 ; Excercises
 ;
-; Here are some programming langiages:
+; Here are some programming languages:
 
 (def languages (seq [{:name "clojure"  :invented 2007}
                      {:name "java"     :invented 1995}
@@ -130,7 +130,7 @@
           {:name "c" :invented 1972}]
          (mature-langs languages))))
 
-; When working with seq, keep is mind, am I working with a collection, or a seq:
+; When working with seq, keep in mind, am I working with a collection, or a seq:
 ;
 ; core functions that work with data-structures:
 ;   (func <data-structure> args)
@@ -163,7 +163,7 @@
 ; Make a lazy seq of random integers between 0 and 100
 
 (defn random-ints []
-  (cons (rand-int 100)
+  (cons (rand-int 101)
         (lazy-seq (random-ints))))
 
 (comment

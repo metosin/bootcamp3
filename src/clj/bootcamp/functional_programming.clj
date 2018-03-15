@@ -35,7 +35,7 @@
 
 ; Higher-order functions:
 
-; - functionas a arguments:
+; - functions as arguments:
 (filter odd? [1 2 3 4 5])
 
 ; - functions as return values:

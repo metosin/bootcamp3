@@ -88,7 +88,7 @@
 ;=> :houser
 
 ;
-; Excercise:
+; Exercise:
 ; ----------
 ;
 

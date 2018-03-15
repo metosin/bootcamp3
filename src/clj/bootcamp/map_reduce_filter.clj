@@ -7,7 +7,7 @@
 ;; Map, reduce and filter:
 ;;
 ;; Common functional programming involves:
-;;   filter  - When you wan't to limit the elemets from seq
+;;   filter  - When you wan't to limit the elements from seq
 ;;   map     - When you wan't to apply convert each element in some way
 ;;   reduce  - When you wan't to reduce a seq to a value
 ;;
@@ -20,8 +20,8 @@
 (filter odd? [1 2 3 4])                                     ;=> (1 3)
 (remove odd? [1 2 3 4])                                     ;=> (2 4)
 
-; Excercise:
-; ----------
+; Exercise:
+; ---------
 ;
 ; Take a look at the books in bootcamp.data.books namespace.
 
@@ -52,7 +52,7 @@
 ; The above is:
 ;   take 41 and 1, apply them to +
 ;   take 1237 and 100, apply them to +
-; In ither words:
+; In other words:
 ;   (cons (+ 41 1) (cons (+ 1237 100)))
 
 (subs "foobar" 3)                                           ;=> "bar"
@@ -61,7 +61,7 @@
      ["foobar" "hello, world" "programming"]
      [3 7 8])                                               ;=> ("bar" "world" "ing")
 
-; Excercise:
+; Exercise:
 ; ----------
 ;
 ; Continue with the books about clojure. This time, produce a seq
@@ -91,7 +91,7 @@
         ["java" "python" "clojure"])                        ;=> "java, python, clojure"
 
 
-; Excercise:
+; Exercise:
 ; ----------
 ;
 ; Continue with the previous example where we got the seq of number of pages.

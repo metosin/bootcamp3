@@ -30,7 +30,7 @@
 
 (shout ["this" "is" "fun"])                                 ;=> "THIS, IS, FUN"
 
-; Excercice:
+; Exercise:
 ; Make a function that accepts a string of digits, converts it to
 ; a number and returns the number doubled:
 
