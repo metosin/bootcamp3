@@ -2,9 +2,9 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
 
                  ; Common libs:
-                 [prismatic/schema "1.1.7"]
+                 [prismatic/schema "1.1.9"]
                  [prismatic/plumbing "0.5.5"]
-                 [metosin/schema-tools "0.10.0"]
+                 [metosin/schema-tools "0.10.1"]
                  [metosin/spec-tools "0.6.1"]
                  [metosin/potpuri "0.5.1"]
 
@@ -29,14 +29,14 @@
                  [metosin/jsonista "0.1.1"]
 
                  ; Database
-                 [hikari-cp "2.2.0"]
-                 [org.postgresql/postgresql "42.2.1"]
-                 [org.clojure/java.jdbc "0.7.5"]
+                 [hikari-cp "2.4.0"]
+                 [org.postgresql/postgresql "42.2.2"]
+                 [org.clojure/java.jdbc "0.7.6"]
                  [org.flywaydb/flyway-core "5.0.7"]
                  [com.layerware/hugsql "0.4.8"]
 
                  ; HTTP and HTML
-                 [clj-http "3.8.0"]
+                 [clj-http "3.9.0"]
                  [hiccup "1.0.5"]
                  [enlive "1.1.6"]
 
@@ -44,7 +44,7 @@
                  [org.clojure/core.async "0.4.474"]
 
                  ; ClojureScript:
-                 [org.clojure/clojurescript "1.10.145"]
+                 [org.clojure/clojurescript "1.10.238"]
                  [org.clojure/tools.reader "1.2.2"]
                  [prismatic/dommy "1.1.0"]
 
