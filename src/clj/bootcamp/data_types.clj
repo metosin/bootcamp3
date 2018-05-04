@@ -48,6 +48,18 @@ nil                                                         ;=> nil
 ; Equal keywords are always identical:
 (identical? :foobar (keyword (str "foo" "bar")))            ;=> true
 
+;; Namespaces and keywords:
+
+(namespace :foo)                                            ;=> nil
+(namespace :foo/bar)                                        ;=> "foo"
+(name :foo/bar)                                             ;=> "bar"
+
+(require '[clojure.string :as s])
+
+(namespace :s/foo)                                          ;=> "s"
+(namespace ::s/foo)                                         ;=> "clojure.string"
+(namespace ::foo)                                           ;=> "bootcamp.data-types"
+
 ;;
 ;; Symbols:
 ;;
@@ -67,6 +79,21 @@ answer                                                      ; 42
 ; Reader macro '
 
 (= (quote answer) 'answer)                                  ; true
+
+; Reader macro `
+
+; Same as ' but expands namespaces:
+
+(namespace 'answer)                                         ;=> nil
+(namespace `answer)                                         ;=> "bootcamp.data-types"
+
+'s/upper-case                                               ;=> s/upper-case
+(namespace 's/upper-case)                                   ;=> "s"
+
+`s/upper-case                                               ;=> clojure.string/upper-case
+(namespace `s/upper-case)                                   ;=> "clojure.string
+
+; The ` is typically only used when writing macros.
 
 ;;
 ;; Functions:
