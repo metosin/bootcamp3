@@ -146,6 +146,14 @@ answer                                                      ; 42
 (foo 1 2 3)                                                 ;=> [1 2 (3)]
 (foo 1 2)                                                   ;=> [1 2 nil]
 
+;; TODO:
+;;   write a function that returns the takes two arguments, the names of your neighbours.
+;;   the function should returns the average length of those names and your own name.
+;; Helper:
+;;   check functions count, + and / from clojure.core namespace
+;;   try: (clojure.repl/doc count)
+
+
 ;;
 ;; Closures:
 ;;
