@@ -22,6 +22,19 @@
 (type true)                                                 ;=> java.lang.Boolean
 (type \x)                                                   ;=> java.lang.Character
 (type #"foo\s+bar")                                         ;=> java.util.regex.Pattern
+(type 3/14)                                                 ;=> clojure.lang.Ratio
+
+; Note: pay attention of unintended ratios:
+
+(time
+  (reduce + 1/2 (range 1000000)))
+;=> "Elapsed time: 396.400713 msecs"
+;   999999000001/2
+
+(time
+  (reduce + 0.5 (range 1000000)))
+;=> "Elapsed time: 16.039644 msecs"
+;    4.999995000005E11
 
 ;;
 ;; nil, same as null in Java et al.
